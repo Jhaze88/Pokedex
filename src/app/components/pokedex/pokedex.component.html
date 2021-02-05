@@ -1,0 +1,83 @@
+<div class="container-pokedex container-fluid mt-5">
+  <div class="col-12">
+    <div class="details container-fluid">
+      <div class="image-pokemon mt-5">
+        <div class="name">
+          <h3>
+            {{ pokemon.name | uppercase }} #<span>{{ pokemon.id }}</span>
+          </h3>
+        </div>
+
+        <!-- <img src="./assets/pokemon-ball.png" alt="" /> -->
+        <img [src]="img" alt="pokemon" />
+        <div class="form container-fluid col-6 mt-4">
+          <div class="cerca-pokemon">
+            <form #p="ngForm" (ngSubmit)="searchPokemon(p)">
+              <input
+                type="text"
+                name="pokemon"
+                placeholder="Cerca..."
+                ngModel
+              />
+            </form>
+          </div>
+          <div class="box container-fluid mt-2 col-12">
+            <div class="select">
+              <select name="" id="" [(ngModel)]="pokemon">
+                <option value="" *ngFor="let t of pokemonTypes">
+                  {{ t.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="bottone container-fluid mt-3">
+            <button
+              (click)="movePokemon(false)"
+              class="btn btn-primary"
+              [disabled]="btnDis"
+            >
+              PREV.
+            </button>
+            <button (click)="movePokemon(true)" class="btn btn-primary">
+              NEXT
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-pokemon mt-5">
+        <div class="mt-2">
+          <p>Weight: {{ pokemon.weight }} Kg</p>
+          <p>Height: {{ pokemon.height }} Ft</p>
+          <p>
+            Type: {{ pokemon.types[0].type.name }}
+            {{ pokemon.types[1]?.type.name }}
+          </p>
+          <div
+            class="progressBarContainer container-fluid mt-2 col-12"
+            *ngFor="let stat of pokemon.stats"
+          >
+            <div class="nameStats">
+              <h6>{{ stat.stat.name }}</h6>
+            </div>
+            <div class="valueStats">
+              <h6>{{ stat.base_stat }}</h6>
+              <div class="bars">
+                <div class="barContainer">
+                  <div
+                    class="coloredBar"
+                    [ngStyle]="{
+                      width: stat.base_stat + '%',
+                      border:
+                        stat.base_stat > 50 ? '2px solid lime' : '2px solid red'
+                    }"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
